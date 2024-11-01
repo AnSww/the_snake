@@ -98,7 +98,8 @@ class Apple:
 
     def spawn(self):
         """Появление яблока в случайной позиции."""
-        return (random.randint(0, GRID_WIDTH - 1), random.randint(0, GRID_HEIGHT - 1))
+        return (random.randint(0, GRID_WIDTH - 1),
+                random.randint(0, GRID_HEIGHT - 1))
 
 
 def main():
@@ -124,7 +125,7 @@ def main():
         # Проверка на столкновение со яблоком
         if snake.positions[0] == apple.position:
             snake.grow = True
-            apple.position = apple.spawn()  # Исправлено на правильное назначение
+            apple.position = apple.spawn()
 
         snake.draw()
         apple.draw()
