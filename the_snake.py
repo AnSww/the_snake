@@ -22,7 +22,10 @@ SNAKE_COLOR = (0, 255, 0)
 # Скорость движения змейки:
 SPEED = 10
 
+
 class Snake:
+    """Класс для управления змейкой."""
+
     def __init__(self):
         self.positions = [(GRID_WIDTH // 2, GRID_HEIGHT // 2)]
         self.direction = RIGHT
@@ -30,12 +33,19 @@ class Snake:
         self.grow = False
 
     def draw(self):
+        """Отрисовка змейки на экране."""
         for position in self.positions:
-            rect = pygame.Rect(position[0] * GRID_SIZE, position[1] * GRID_SIZE, GRID_SIZE, GRID_SIZE)
+            rect = pygame.Rect(
+                position[0] * GRID_SIZE,
+                position[1] * GRID_SIZE,
+                GRID_SIZE,
+                GRID_SIZE
+            )
             pygame.draw.rect(screen, SNAKE_COLOR, rect)
             pygame.draw.rect(screen, BORDER_COLOR, rect, 1)
 
     def update(self):
+        """Обновление позиции змейки."""
         if self.grow:
             self.positions.append(self.positions[-1])
             self.grow = False
@@ -47,6 +57,7 @@ class Snake:
         self.positions.insert(0, new_head)
 
     def handle_keys(self):
+        """Обработка нажатий клавиш."""
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -62,24 +73,37 @@ class Snake:
                     self.next_direction = RIGHT
 
     def update_direction(self):
+        """Обновление направления змейки."""
         if self.next_direction:
             self.direction = self.next_direction
             self.next_direction = None
 
+
 class Apple:
+    """Класс для управления яблоком."""
+
     def __init__(self):
-        self.position = (random.randint(0, GRID_WIDTH - 1), random.randint(0, GRID_HEIGHT - 1))
+        self.position = self.spawn()
 
     def draw(self):
-        rect = pygame.Rect(self.position[0] * GRID_SIZE, self.position[1] * GRID_SIZE, GRID_SIZE, GRID_SIZE)
+        """Отрисовка яблока на экране."""
+        rect = pygame.Rect(
+            self.position[0] * GRID_SIZE,
+            self.position[1] * GRID_SIZE,
+            GRID_SIZE,
+            GRID_SIZE
+        )
         pygame.draw.rect(screen, APPLE_COLOR, rect)
         pygame.draw.rect(screen, BORDER_COLOR, rect, 1)
 
     def spawn(self):
-        self.position = (random.randint(0, GRID_WIDTH - 1), random.randint(0, GRID_HEIGHT - 1))
+        """Появление яблока в случайной позиции."""
+        return (random.randint(0, GRID_WIDTH - 1), random.randint(0, GRID_HEIGHT - 1))
+
 
 def main():
-    # Инициализация Pygame:
+    """Основная функция игры."""
+    # Инициализация Pygame
     pygame.init()
     global screen
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), 0, 32)
@@ -100,11 +124,12 @@ def main():
         # Проверка на столкновение со яблоком
         if snake.positions[0] == apple.position:
             snake.grow = True
-            apple.spawn()
+            apple.position = apple.spawn()  # Исправлено на правильное назначение
 
         snake.draw()
         apple.draw()
         pygame.display.update()
+
 
 if __name__ == '__main__':
     main()
