@@ -78,7 +78,8 @@ class Snake(GameObject):
     def __init__(self):
         """Инициализирует начальное состояние змейки."""
         self.length = 1
-        self.positions = [(GRID_WIDTH // 2 * GRID_SIZE, GRID_HEIGHT // 2 * GRID_SIZE)]
+        self.positions = [(GRID_WIDTH // 2 * GRID_SIZE,
+                           GRID_HEIGHT // 2 * GRID_SIZE)]
         self.direction = RIGHT
         self.next_direction = None
         self.body_color = SNAKE_COLOR
@@ -123,9 +124,9 @@ class Snake(GameObject):
         return self.positions[0]
 
     def reset(self):
-        """Сбрасывает змейку в начальное состояние после столкновения с собой."""
         self.length = 1
-        self.positions = [(GRID_WIDTH // 2 * GRID_SIZE, GRID_HEIGHT // 2 * GRID_SIZE)]
+        self.positions = [(GRID_WIDTH // 2 * GRID_SIZE,
+                           GRID_HEIGHT // 2 * GRID_SIZE)]
         self.direction = RIGHT
         self.next_direction = None
 
