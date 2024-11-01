@@ -124,8 +124,7 @@ class Snake(GameObject):
         return self.positions[0]
 
     def reset(self):
-        """Сбрасывает змейку в начальное состояние
-         после столкновения с собой."""
+        """Сбрасывает змейку в начальное состояние после столкновения"""
         self.length = 1
         self.positions = [(GRID_WIDTH // 2 * GRID_SIZE,
                            GRID_HEIGHT // 2 * GRID_SIZE)]
