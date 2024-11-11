@@ -80,7 +80,6 @@ class Snake(GameObject):
         self.next_direction = None
         self.body_color = SNAKE_COLOR
         self.last = None
-        # Передаем начальную позицию змейки в конструктор GameObject
         super().__init__(self.positions[0])
 
     def update_direction(self):
@@ -116,6 +115,18 @@ class Snake(GameObject):
         if self.last:
             last_rect = pygame.Rect(self.last, (GRID_SIZE, GRID_SIZE))
             pygame.draw.rect(screen, BOARD_BACKGROUND_COLOR, last_rect)
+
+    def get_head_position(self):
+        """Возвращает позицию головы змейки."""
+        return self.positions[0]
+
+    def reset(self):
+        """Сбрасывает змейку в начальное состояние после столкновения"""
+        self.length = 1
+        self.positions = [(GRID_WIDTH // 2 * GRID_SIZE,
+                           GRID_HEIGHT // 2 * GRID_SIZE)]
+        self.direction = RIGHT
+        self.next_direction = None
 
 
 def handle_keys(game_object):
